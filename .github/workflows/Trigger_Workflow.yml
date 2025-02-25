@@ -1,20 +1,12 @@
 name: Trigger_Workflow
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deployment environment'
-        required: true
-        default: 'production'
-      version:
-        description: 'Version to deploy'
-        required: true
-        default: '1.0.0'
+  [workflow_dispatch]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  run-cmd-script:
+    runs-on: [self-hosted, windows]
+    if: contains(github.event.head_commit.message, '[run-ci]')
 
     steps:
     # - name: Checkout repository
